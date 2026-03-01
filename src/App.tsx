@@ -1,77 +1,80 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import LandingPage from './components/LandingPage';
+import ArchitecturePage from './components/ArchitecturePage';
+import EconomicCellsPage from './components/EconomicCellsPage';
+import CommunitiesPage from './components/CommunitiesPage';
+import CommunityTradingPage from './components/CommunityTradingPage';
+import DeveloperPage from './components/DeveloperPage';
+import Dashboard from './components/Dashboard';
+import BNPLPage from './components/BNPLPage';
+import ConnectCommunitiesPage from './components/ConnectCommunitiesPage';
+import { Test as TestFile } from './components/TestFile';
 import { Toaster } from 'sonner';
-import { LandingPage } from './components/LandingPage';
-import { Dashboard } from './components/Dashboard';
-import { Navbar } from './components/Navbar';
-import { CommunitiesPage } from './components/CommunitiesPage';
-import { EconomicCellsPage } from './components/EconomicCellsPage';
-import { ArchitecturePage } from './components/ArchitecturePage';
-import { CommunityTradingPage } from './components/CommunityTradingPage';
-import { DeveloperPage } from './components/DeveloperPage';
-import { BNPLPage } from './components/BNPLPage';
-import { ConnectCommunitiesPage } from './components/ConnectCommunitiesPage';
-
-export type ViewState = 'landing' | 'dashboard' | 'communities' | 'economic-cells' | 'architecture' | 'community-trading' | 'developers' | 'bnpl' | 'connect-communities';
 
 function App() {
-  const [view, setView] = useState<ViewState>('landing');
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [view]);
-
   return (
-    <div className="min-h-screen bg-slate-950 text-white selection:bg-[#008752]/30 text-[10px] md:text-sm">
-      <Navbar setView={setView} currentView={view} />
-      
-      <main>
-        {view === 'landing' && (
-          <LandingPage onEnterApp={() => setView('dashboard')} />
-        )}
-        {view === 'dashboard' && (
-          <Dashboard />
-        )}
-        {view === 'communities' && (
-          <CommunitiesPage />
-        )}
-        {view === 'economic-cells' && (
-          <EconomicCellsPage />
-        )}
-        {view === 'architecture' && (
-          <ArchitecturePage />
-        )}
-        {view === 'community-trading' && (
-          <CommunityTradingPage />
-        )}
-        {view === 'developers' && (
-          <DeveloperPage />
-        )}
-        {view === 'bnpl' && (
-          <BNPLPage />
-        )}
-        {view === 'connect-communities' && (
-          <ConnectCommunitiesPage />
-        )}
-      </main>
-
-      <footer className="py-12 px-6 border-t border-slate-800 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] md:text-sm font-black uppercase tracking-widest">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setView('landing')}>
-            <div className="w-10 h-10 bg-gradient-to-br from-[#008752] via-[#FFD700] to-[#EF3340] rounded-lg flex items-center justify-center font-bold text-xl shadow-lg shadow-[#008752]/20 text-white">H</div>
-            <span className="text-xl font-bold tracking-tight">HellOOpass</span>
+    <Router>
+      <div className="min-h-screen bg-white text-slate-900 selection:bg-blue-600/10">
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/architecture" element={<ArchitecturePage />} />
+            <Route path="/economic-cells" element={<EconomicCellsPage />} />
+            <Route path="/communities" element={<CommunitiesPage />} />
+            <Route path="/trading" element={<CommunityTradingPage />} />
+            <Route path="/developer" element={<DeveloperPage />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/bnpl" element={<BNPLPage />} />
+            <Route path="/connect" element={<ConnectCommunitiesPage />} />
+            <Route path="/test" element={<TestFile />} />
+            <Route path="*" element={<LandingPage />} />
+          </Routes>
+        </main>
+        
+        <footer className="bg-slate-900 text-white py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
+              <div className="col-span-1 md:col-span-2">
+                <span className="text-3xl font-black tracking-tighter uppercase italic text-blue-600">
+                  HellOOpass
+                </span>
+                <p className="mt-6 text-slate-400 max-w-md text-lg leading-relaxed">
+                  The foundational protocol for global community-driven commerce. Empowering networks to build, trade, and scale autonomously.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-bold uppercase text-xs tracking-widest mb-8 text-blue-500">Product</h4>
+                <ul className="space-y-4 text-sm font-medium text-slate-300">
+                  <li><a href="/architecture" className="hover:text-blue-500 transition-colors">Architecture</a></li>
+                  <li><a href="/communities" className="hover:text-blue-500 transition-colors">Communities</a></li>
+                  <li><a href="/economic-cells" className="hover:text-blue-500 transition-colors">Economic Cells</a></li>
+                  <li><a href="/trading" className="hover:text-blue-500 transition-colors">Trading</a></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-bold uppercase text-xs tracking-widest mb-8 text-blue-500">Resources</h4>
+                <ul className="space-y-4 text-sm font-medium text-slate-300">
+                  <li><a href="#" className="hover:text-blue-500 transition-colors">Documentation</a></li>
+                  <li><a href="#" className="hover:text-blue-500 transition-colors">Whitepaper</a></li>
+                  <li><a href="#" className="hover:text-blue-500 transition-colors">Support</a></li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-24 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+              <div>© 2024 HellOOpass Foundation</div>
+              <div className="flex space-x-12">
+                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              </div>
+            </div>
           </div>
-          <p className="text-slate-400">
-            © 2025 HellOOpass. Reclaiming the Economics of Community.
-          </p>
-          <div className="flex gap-6 text-slate-400">
-            <a href="#" className="hover:text-[#FFD700] transition-colors">Privacy</a>
-            <a href="#" className="hover:text-[#FFD700] transition-colors">Terms</a>
-            <a href="#" className="hover:text-[#FFD700] transition-colors">Contact</a>
-          </div>
-        </div>
-      </footer>
-      <Toaster position="top-center" richColors />
-    </div>
+        </footer>
+        <Toaster position="bottom-right" richColors />
+      </div>
+    </Router>
   );
 }
 
