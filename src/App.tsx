@@ -5,8 +5,13 @@ import { Dashboard } from './components/Dashboard';
 import { Navbar } from './components/Navbar';
 import { CommunitiesPage } from './components/CommunitiesPage';
 import { EconomicCellsPage } from './components/EconomicCellsPage';
+import { ArchitecturePage } from './components/ArchitecturePage';
+import { CommunityTradingPage } from './components/CommunityTradingPage';
+import { DeveloperPage } from './components/DeveloperPage';
+import { BNPLPage } from './components/BNPLPage';
+import { ConnectCommunitiesPage } from './components/ConnectCommunitiesPage';
 
-export type ViewState = 'landing' | 'dashboard' | 'communities' | 'economic-cells';
+export type ViewState = 'landing' | 'dashboard' | 'communities' | 'economic-cells' | 'architecture' | 'community-trading' | 'developers' | 'bnpl' | 'connect-communities';
 
 function App() {
   const [view, setView] = useState<ViewState>('landing');
@@ -16,7 +21,7 @@ function App() {
   }, [view]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white selection:bg-[#008752]/30">
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-[#008752]/30 text-[10px] md:text-sm">
       <Navbar setView={setView} currentView={view} />
       
       <main>
@@ -32,18 +37,33 @@ function App() {
         {view === 'economic-cells' && (
           <EconomicCellsPage />
         )}
+        {view === 'architecture' && (
+          <ArchitecturePage />
+        )}
+        {view === 'community-trading' && (
+          <CommunityTradingPage />
+        )}
+        {view === 'developers' && (
+          <DeveloperPage />
+        )}
+        {view === 'bnpl' && (
+          <BNPLPage />
+        )}
+        {view === 'connect-communities' && (
+          <ConnectCommunitiesPage />
+        )}
       </main>
 
       <footer className="py-12 px-6 border-t border-slate-800 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] md:text-sm font-black uppercase tracking-widest">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => setView('landing')}>
             <div className="w-10 h-10 bg-gradient-to-br from-[#008752] via-[#FFD700] to-[#EF3340] rounded-lg flex items-center justify-center font-bold text-xl shadow-lg shadow-[#008752]/20 text-white">H</div>
             <span className="text-xl font-bold tracking-tight">HellOOpass</span>
           </div>
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-400">
             © 2025 HellOOpass. Reclaiming the Economics of Community.
           </p>
-          <div className="flex gap-6 text-sm text-slate-400">
+          <div className="flex gap-6 text-slate-400">
             <a href="#" className="hover:text-[#FFD700] transition-colors">Privacy</a>
             <a href="#" className="hover:text-[#FFD700] transition-colors">Terms</a>
             <a href="#" className="hover:text-[#FFD700] transition-colors">Contact</a>

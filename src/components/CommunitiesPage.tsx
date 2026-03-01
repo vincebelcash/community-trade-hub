@@ -91,7 +91,7 @@ const CommunitySection = ({ title, icon, image, description, howItWorks, empower
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />
             <div className="absolute bottom-6 left-6 right-6">
                <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest bg-white text-black px-6 py-3 rounded-full hover:bg-[#FFD700] transition-colors">
-                  Join This Network
+                  Join the platform
                   <ArrowRight size={14} />
                </button>
             </div>
