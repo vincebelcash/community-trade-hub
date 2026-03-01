@@ -1,107 +1,356 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Share2, TrendingUp, Zap, Server, Database, Globe } from 'lucide-react';
-import { Button } from './ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
+import { ShieldCheck, Zap, Users, Globe, Smartphone, Banknote, Rocket, CheckCircle2, ArrowRight, Terminal, Database, AlertCircle, Scale, Coins, Sparkles, Cpu, Code2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-const DeveloperPage = () => {
+export function DeveloperPage() {
+  const images = {
+    developer: "https://storage.googleapis.com/dala-prod-public-storage/generated-images/b88df19d-56b8-43a3-a0ec-e63c9a3dc9ca/ethiopian-developer-with-prominent-gebeya-logo-377d888f-1772385869163.webp",
+    consumer: "https://storage.googleapis.com/dala-prod-public-storage/generated-images/b88df19d-56b8-43a3-a0ec-e63c9a3dc9ca/congolese-consumer-using-helloopass-981dd64b-1772385868496.webp",
+    institution: "https://storage.googleapis.com/dala-prod-public-storage/generated-images/b88df19d-56b8-43a3-a0ec-e63c9a3dc9ca/financial-infrastructure-integration-878256d2-1772385873930.webp",
+    gebeyaLogo: "https://storage.googleapis.com/dala-prod-public-storage/attachments/2b04cbc3-7457-4f8b-bed7-cf47a1dea9c2/1772386375679_gebeya_logo.png"
+  };
+
+  const apis = [
+    { category: "Payments", desc: "Process transactions, manage wallets, handle settlements", icon: Banknote },
+    { category: "Identity", desc: "KYC verification, community reputation scores", icon: Users },
+    { category: "Lending", desc: "BNPL engine, microloan disbursement", icon: Zap },
+    { category: "Messaging", desc: "In-app notifications, community broadcasts", icon: Smartphone },
+    { category: "Analytics", desc: "Transaction insights, user behavior", icon: Database },
+    { category: "Commerce", desc: "Product catalogs, order tracking", icon: Globe },
+    { category: "Logistics", desc: "Delivery tracking, route optimization", icon: Rocket },
+    { category: "Gamification", desc: "Loyalty points, rewards, leaderboards", icon: CheckCircle2 },
+    { category: "Scheduling", desc: "Appointments, bookings", icon: ShieldCheck },
+    { category: "Content", desc: "Media hosting, educational materials", icon: Terminal },
+  ];
+
   return (
-    <div className="pt-32 pb-32 bg-white text-slate-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="mb-32 text-center max-w-4xl mx-auto">
-          <motion.div
+    <div className="pt-32 pb-20 px-4 md:px-6 bg-slate-950 text-white selection:bg-[#008752]/30 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Hero Section */}
+        <div className="text-center mb-32 space-y-8">
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center space-x-2 bg-slate-100 px-4 py-2 rounded-full text-slate-900 text-[10px] font-bold tracking-widest mb-10 uppercase border border-slate-200"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#008752]/10 border border-[#008752]/20 text-[#008752] text-[10px] font-black uppercase tracking-[0.2em]"
           >
-            <Code className="h-4 w-4" />
-            <span>Developer Ecosystem & API</span>
+            <div className="w-2 h-2 rounded-full bg-[#008752] animate-pulse" />
+            Empowering African Innovation
           </motion.div>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight uppercase italic leading-none">Build <span className="text-blue-600">Tomorrow</span> Today</h1>
-          <p className="text-xl text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
-            Build on HellOOpass and unlock the power of community-driven trade using our high-performance API.
-          </p>
-        </header>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-5xl md:text-8xl font-black tracking-tighter leading-[0.9] text-balance text-white"
+          >
+            The Billing and Payment Settlement Operating System for <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#FF8C00]">Pan-African Apps</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl md:text-2xl text-slate-400 leading-relaxed font-medium max-w-3xl mx-auto"
+          >
+            Stop fighting red tape. Start writing code. Build and launch fintech solutions across 54 countries with a single integration.
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <Button size="lg" className="h-16 px-10 bg-[#008752] hover:bg-[#00A86B] text-white rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl shadow-[#008752]/20">
+              Start Building <ArrowRight className="ml-2" size={18} />
+            </Button>
+            <Button size="lg" variant="outline" className="h-16 px-10 bg-slate-900 border-slate-800 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-slate-800">
+              API Docs
+            </Button>
+          </motion.div>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center mb-40">
-          <div className="space-y-12">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-bold tracking-tight italic uppercase leading-none">Scalable <span className="text-blue-500">Infrastructure</span></h2>
-              <p className="text-lg text-slate-600 leading-relaxed font-medium">
-                We provide developers with advanced machine learning models for risk assessment and market optimization within the HellOOpass ecosystem.
+        {/* Gebeya Partnership Highlight */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-48 relative"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-[#008752]/5 to-transparent rounded-[4rem] blur-3xl -z-10" />
+          <div className="p-8 md:p-16 bg-slate-900/40 border border-white/5 rounded-[4rem] flex flex-col items-center text-center space-y-10">
+            <a 
+              href="https://gebeya.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group relative transition-transform hover:scale-105 active:scale-95 block"
+            >
+              <div className="absolute -inset-4 bg-[#FFD700]/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              <img 
+                src={images.gebeyaLogo} 
+                alt="Gebeya AI Logo" 
+                className="h-12 md:h-16 object-contain relative"
+              />
+            </a>
+            
+            <div className="max-w-4xl space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 text-[#FFD700] text-[10px] font-black uppercase tracking-widest">
+                <Sparkles size={12} />
+                Strategic Partnership
+              </div>
+              <h2 className="text-3xl md:text-6xl font-black tracking-tighter leading-tight">
+                Built with the <span className="text-[#FFD700]">Most Advanced AI Developer Community</span> in Africa
+              </h2>
+              <p className="text-xl md:text-2xl text-slate-400 font-medium leading-relaxed">
+                Helloopass partnered with <span className="text-white font-bold">Gebeya AI</span>, the continent's leading ecosystem of AI developers. This collaboration ensures your apps are built on the most robust AI infrastructure, leveraging the top 1% of African tech talent.
               </p>
             </div>
-            <div className="space-y-8">
-              <div className="flex items-start space-x-6 group">
-                <div className="bg-blue-50 p-4 rounded-xl text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
-                  <Globe className="h-6 w-6" />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+              {[
+                { icon: Cpu, label: "AI Integration", text: "Seamless access to Gebeya's advanced AI models and developer tools." },
+                { icon: Code2, label: "Elite Talent", text: "Direct pipeline to the most skilled software engineers across 54 countries." },
+                { icon: Globe, label: "Pan-African Reach", text: "A localized approach to AI that understands the nuances of African markets." }
+              ].map((item, idx) => (
+                <div key={idx} className="p-8 bg-slate-950/50 rounded-3xl border border-white/5 text-left space-y-4 group hover:border-[#FFD700]/30 transition-colors">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FFD700]/10 flex items-center justify-center text-[#FFD700] group-hover:scale-110 transition-transform">
+                    <item.icon size={24} />
+                  </div>
+                  <h4 className="font-black text-white uppercase tracking-widest text-xs">{item.label}</h4>
+                  <p className="text-sm text-slate-500 font-medium leading-relaxed">{item.text}</p>
                 </div>
-                <div>
-                  <h4 className="font-bold uppercase tracking-widest text-base mb-1 italic">Simple Integration</h4>
-                  <p className="text-slate-500 font-medium leading-relaxed">REST and GraphQL endpoints designed for rapid deployment.</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-6 group">
-                <div className="bg-blue-50 p-4 rounded-xl text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all shadow-sm">
-                  <Share2 className="h-6 w-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold uppercase tracking-widest text-base mb-1 italic">Revenue Sharing</h4>
-                  <p className="text-slate-500 font-medium leading-relaxed">Earn <span className="text-blue-600 font-bold">15%</span> of all transaction fees generated through your apps.</p>
-                </div>
-              </div>
+              ))}
             </div>
-            <Button size="lg" className="h-16 px-10 text-base font-bold uppercase tracking-widest rounded-xl bg-slate-900 hover:bg-blue-600 text-white shadow-xl transition-all">
-              Get API Key Now
-            </Button>
           </div>
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="rounded-[3rem] overflow-hidden relative group aspect-square shadow-2xl"
-          >
-            <img 
-              src="https://storage.googleapis.com/dala-prod-public-storage/generated-images/b88df19d-56b8-43a3-a0ec-e63c9a3dc9ca/developer-ecosystem-6573dcb7-1772395288792.webp" 
-              alt="Developer Ecosystem"
-              className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex items-end p-10">
-              <p className="text-white font-bold italic uppercase tracking-widest text-lg">The Future of OSS Trade</p>
+        </motion.div>
+
+        {/* Section 1: No Licensing Barriers */}
+        <section className="mb-48">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-10"
+            >
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">Truly <span className="text-[#008752]">Plug and Play</span></h2>
+                <div className="h-2 w-24 bg-[#008752] rounded-full" />
+              </div>
+              
+              <div className="space-y-6">
+                <div className="p-8 bg-red-500/10 border border-red-500/20 rounded-3xl space-y-4">
+                  <div className="flex items-center gap-3 text-red-400 font-black uppercase tracking-widest text-xs">
+                    <AlertCircle size={16} />
+                    The Regulatory Challenge
+                  </div>
+                  <ul className="space-y-4 text-slate-300 font-medium">
+                    <li className="flex items-start gap-3 text-sm md:text-base">
+                      <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+                      Launching fintech apps in Africa usually requires separate licenses for 54+ countries.
+                    </li>
+                    <li className="flex items-start gap-3 text-sm md:text-base">
+                      <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+                      Each country has different regulators, complex requirements, and uncertain timelines.
+                    </li>
+                    <li className="flex items-start gap-3 text-sm md:text-base">
+                      <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0" />
+                      Licensing can take 6–24 months and cost hundreds of thousands of dollars.
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="p-8 bg-[#008752]/10 border border-[#008752]/20 rounded-3xl space-y-4">
+                  <div className="flex items-center gap-3 text-[#008752] font-black uppercase tracking-widest text-xs">
+                    <CheckCircle2 size={16} />
+                    The Helloopass Solution
+                  </div>
+                  <p className="text-slate-300 font-medium leading-relaxed text-sm md:text-base">
+                    Helloopass provides the compliance infrastructure out of the box. No licensing barriers. One integration gives you immediate access to a pan-African network.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#008752]/20 to-transparent rounded-[3rem] -rotate-3 transition-transform group-hover:rotate-0" />
+              <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl bg-slate-900">
+                <img 
+                  src={images.developer} 
+                  alt="Ethiopian Developer" 
+                  className="w-full aspect-[4/5] object-cover transition-transform duration-1000 group-hover:scale-105" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className="absolute bottom-10 left-10 right-10">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-bold border border-white/10 flex items-center gap-2">
+                      <img src={images.gebeyaLogo} alt="G" className="h-3" />
+                      Gebeya Partner
+                    </div>
+                    <span className="px-3 py-1 bg-[#008752]/80 backdrop-blur-md rounded-full text-[10px] font-bold">Addis Ababa, ET</span>
+                  </div>
+                  <h3 className="text-3xl font-black text-white leading-tight">Empowered by <span className="text-[#FFD700]">Gebeya AI</span></h3>
+                  <p className="text-sm text-slate-300 font-medium mt-2">
+                    Access elite infrastructure and join a vetted community of African tech talent.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Section 2: Real World Consumer Impact */}
+        <section className="mb-48">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="order-2 lg:order-1 relative group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-tl from-[#FFD700]/20 to-transparent rounded-[3rem] rotate-3 transition-transform group-hover:rotate-0" />
+              <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl bg-slate-900">
+                <img 
+                  src={images.consumer} 
+                  alt="Congolese Consumer" 
+                  className="w-full aspect-square object-cover transition-transform duration-1000 group-hover:scale-105" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className="absolute bottom-10 left-10 right-10">
+                   <div className="flex items-center gap-2 mb-4">
+                    <span className="px-3 py-1 bg-[#EF3340]/80 backdrop-blur-md rounded-full text-[10px] font-bold text-white">Kinshasa, DRC</span>
+                  </div>
+                  <h3 className="text-3xl font-black text-white leading-tight">Now deployed from <span className="text-[#FFD700]">Addis to Kinshasa</span></h3>
+                  <p className="text-sm text-slate-300 font-medium mt-2">
+                    Solve real-world challenges like transport payments with frictionless APIs.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="order-1 lg:order-2 space-y-10"
+            >
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">Beyond <span className="text-[#FFD700]">Acquisition</span></h2>
+                <div className="h-2 w-24 bg-[#FFD700] rounded-full" />
+              </div>
+              <p className="text-xl text-slate-400 font-medium leading-relaxed">
+                Connect with active communities and cooperatives from day one.
+              </p>
+              <div className="space-y-4">
+                {[
+                  { icon: Users, title: "Instant Access", desc: "Plug into economic cells with thousands of active members." },
+                  { icon: Scale, title: "Compliance-as-a-Service", desc: "We handle the KYC, AML, and data privacy across all borders." },
+                  { icon: Coins, title: "Revenue Sharing", desc: "Keep the majority of your earnings. No upfront platform fees." }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 p-5 bg-slate-900/40 rounded-3xl border border-white/5 hover:border-white/10 transition-colors">
+                    <div className="shrink-0 w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-[#FFD700]">
+                      <item.icon size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-black text-white text-sm">{item.title}</h4>
+                      <p className="text-xs text-slate-400 font-medium">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Section 3: Institutional Bridges */}
+        <section className="mb-48">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-10"
+            >
+              <div className="space-y-4">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">Institutional <span className="text-[#EF3340]">Bridges</span></h2>
+                <div className="h-2 w-24 bg-[#EF3340] rounded-full" />
+              </div>
+              <p className="text-xl text-slate-400 font-medium leading-relaxed">
+                Bridge the gap between formal banking and local cooperatives.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {["Interoperability", "Asset Backing", "Risk Management", "Liquidity"].map((feat) => (
+                  <div key={feat} className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 font-bold text-xs text-white">
+                    <CheckCircle2 size={14} className="text-[#008752]" />
+                    {feat}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative group"
+            >
+              <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl bg-slate-900">
+                <img 
+                  src={images.institution} 
+                  alt="Financial Institution" 
+                  className="w-full aspect-[16/9] object-cover transition-transform duration-1000 group-hover:scale-105" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className="absolute bottom-8 left-8">
+                  <span className="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-[10px] font-bold border border-white/10 text-white">Nairobi Infrastructure</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* APIs Section */}
+        <div className="mb-48 p-8 md:p-20 bg-slate-900/50 rounded-[4rem] border border-slate-800 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#008752]/10 blur-[100px] -mr-48 -mt-48 rounded-full" />
+          <div className="relative z-10 text-white">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+              <div className="max-w-2xl space-y-4">
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter">Powerful <span className="text-[#008752]">APIs</span></h2>
+                <p className="text-lg text-slate-400 font-medium">Over 200 endpoints to power your innovation.</p>
+              </div>
+              <button className="flex items-center gap-2 text-[#008752] font-black uppercase tracking-widest text-xs hover:gap-4 transition-all">
+                Explore Documentation <ArrowRight size={16} />
+              </button>
             </div>
-          </motion.div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {apis.map((api, idx) => (
+                <div key={idx} className="p-6 bg-slate-950/50 border border-slate-800 rounded-3xl hover:border-[#008752]/40 transition-all">
+                  <api.icon className="text-[#FFD700] mb-4" size={20} />
+                  <h4 className="text-[10px] font-black text-[#FFD700] uppercase tracking-widest mb-2">{api.category}</h4>
+                  <p className="text-[10px] text-slate-500 font-medium leading-relaxed">{api.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            { title: 'Market API', icon: TrendingUp, desc: 'Access real-time community trading data and market trends across the network.', color: 'text-blue-600', bg: 'bg-blue-600/10' },
-            { title: 'Wallet API', icon: Zap, desc: 'Securely manage multi-currency community wallets and cross-border settlements.', color: 'text-blue-500', bg: 'bg-blue-500/10' },
-            { title: 'Cell API', icon: Server, desc: 'Interact with economic cells directly to manage membership and governance.', color: 'text-slate-900', bg: 'bg-slate-100' }
-          ].map((api, i) => (
-            <motion.div
-              key={api.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <Card className="hover:border-blue-200 transition-all p-8 border-slate-100 bg-white rounded-[2rem] shadow-sm group">
-                <CardHeader className="p-0 mb-6">
-                  <CardTitle className="flex items-center space-x-3 text-xl font-bold uppercase italic tracking-tight">
-                    <div className={`${api.bg} ${api.color} p-3 rounded-xl shadow-sm group-hover:scale-110 transition-transform`}>
-                      <api.icon className="h-5 w-5" />
-                    </div>
-                    <span>{api.title}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <p className="text-slate-600 font-medium">{api.desc}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        {/* CTA */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-br from-[#008752] to-[#005a37] rounded-[4rem] p-12 md:p-24 text-center space-y-8 relative overflow-hidden shadow-2xl"
+        >
+          <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-white">Build once. Deploy everywhere.</h2>
+          <Button size="lg" className="h-16 px-16 bg-white text-[#008752] rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-slate-50 shadow-xl group">
+            Become a Partner <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </motion.div>
       </div>
     </div>
   );
-};
-
-export default DeveloperPage;
+}

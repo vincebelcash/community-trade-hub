@@ -1,103 +1,268 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap, Layout, Network, Users, TrendingUp, Globe } from 'lucide-react';
-import { Button } from './ui/button';
+import React, { useState } from 'react';
+import { Menu, X, LayoutDashboard, Bell, User, Users, LogOut, Settings, ShieldCheck, Zap, ChevronDown, ChevronRight, Globe, ShoppingBag, Link, Landmark, Network, Share2, Layers, Code } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
+import { ViewState } from '../App';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const location = useLocation();
+interface NavbarProps {
+  setView: (view: ViewState) => void;
+  currentView: ViewState;
+}
 
-  const navItems = [
-    { name: 'Architecture', path: '/architecture', icon: Layout },
-    { name: 'Economic Cells', path: '/economic-cells', icon: Network },
-    { name: 'Communities', path: '/communities', icon: Users },
-    { name: 'Trading', path: '/trading', icon: TrendingUp },
-    { name: 'Connect', path: '/connect', icon: Globe },
+export function Navbar({ setView, currentView }: NavbarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
+
+  const scrollToEcosystem = () => {
+    setView('landing');
+    setTimeout(() => {
+      const element = document.getElementById('ecosystem');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+    setIsOpen(false);
+  };
+
+  const showComingSoon = (feature: string) => {
+    toast.info(`${feature} platform features are currently being synchronized with our biometric engine. Check back soon!`, {
+      style: { background: '#008752', color: '#fff' }
+    });
+  };
+
+  const howItWorksItems = [
+    { 
+      title: 'Distributed Economic cells System', 
+      icon: <Network size={14} />,
+      view: 'economic-cells' as ViewState
+    },
+    { 
+      title: 'Your own community trading network', 
+      icon: <Share2 size={14} />,
+      view: 'community-trading' as ViewState
+    },
+    { 
+      title: 'Define favorite services', 
+      icon: <Settings size={14} />,
+      subItems: [
+        { title: 'At shop', icon: <ShoppingBag size={12} /> },
+        { title: 'Online', icon: <Globe size={12} /> }
+      ]
+    },
+    { 
+      title: 'Platform for African developers', 
+      icon: <Code size={14} />,
+      view: 'developers' as ViewState
+    },
+    { 
+      title: 'Buy Now Pay Later', 
+      icon: <Zap size={14} />,
+      view: 'bnpl' as ViewState
+    },
+    { 
+      title: 'Connect communities', 
+      icon: <Link size={14} />,
+      view: 'connect-communities' as ViewState
+    },
+    { title: 'Automated Clearing Houses', icon: <Landmark size={14} /> },
+    { title: 'Main partners', icon: <Users size={14} /> },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isHowItWorksActive = ['economic-cells', 'community-trading', 'developers', 'bnpl', 'connect-communities'].includes(currentView);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20 items-center">
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="bg-blue-600 p-2 rounded-lg text-white shadow-lg shadow-blue-600/20 group-hover:scale-110 transition-transform duration-300">
-              <Zap className="h-5 w-5" fill="currentColor" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-slate-900 uppercase italic">
-              HellOOpass
-            </span>
-          </Link>
-
-          <div className="hidden lg:flex space-x-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                  isActive(item.path)
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800 h-20">
+      <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between font-black uppercase tracking-widest text-[10px]">
+        <div 
+          className="flex items-center gap-2 cursor-pointer group" 
+          onClick={() => setView('landing')}
+        >
+          <div className="w-10 h-10 bg-gradient-to-br from-[#008752] via-[#FFD700] to-[#EF3340] rounded-lg flex items-center justify-center font-black text-xl shadow-lg shadow-[#008752]/20 text-white transition-transform group-hover:scale-110">
+              H
           </div>
-
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="font-bold uppercase tracking-widest text-[10px]" asChild>
-              <Link to="/dashboard">Registry</Link>
-            </Button>
-            <Button size="sm" className="rounded-lg font-bold uppercase tracking-widest text-[10px] bg-slate-900 hover:bg-blue-600 text-white shadow-lg transition-all" asChild>
-              <Link to="/dashboard">Launch App</Link>
-            </Button>
-          </div>
-
-          <div className="lg:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg bg-slate-100 text-slate-900 hover:bg-blue-600 hover:text-white transition-colors focus:outline-none"
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
+          <span className="text-xl font-black tracking-tighter lowercase">ellOOpass</span>
         </div>
+
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-8">
+          <button 
+            onClick={() => setView('landing')}
+            className={`transition-colors ${currentView === 'landing' ? 'text-[#FFD700]' : 'text-slate-400 hover:text-white'}`}
+          >
+            The Vision
+          </button>
+          
+          <button 
+            onClick={scrollToEcosystem}
+            className="text-slate-400 hover:text-[#EF3340] transition-colors flex items-center gap-2"
+          >
+            <Zap size={10} className="text-[#EF3340] animate-pulse" />
+            Wildfire Growth
+          </button>
+          
+          <button 
+            onClick={() => setView('communities')}
+            className={`transition-colors ${currentView === 'communities' ? 'text-[#FFD700]' : 'text-slate-400 hover:text-white'}`}
+          >
+            Communities
+          </button>
+
+          <button 
+            onClick={() => setView('architecture')}
+            className={`transition-colors flex items-center gap-2 ${currentView === 'architecture' ? 'text-[#FFD700]' : 'text-slate-400 hover:text-white'}`}
+          >
+            <Layers size={10} className="text-[#008752]" />
+            Architecture
+          </button>
+
+          {/* How It Works Dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsHowItWorksOpen(true)}
+            onMouseLeave={() => setIsHowItWorksOpen(false)}
+          >
+            <button 
+              className={`transition-colors flex items-center gap-1 py-4 ${isHowItWorksOpen || isHowItWorksActive ? 'text-[#FFD700]' : 'text-slate-400 hover:text-white'}`}
+            >
+              How it works?
+              <ChevronDown size={12} className={`transition-transform duration-300 ${isHowItWorksOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            <AnimatePresence>
+              {isHowItWorksOpen && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  className="absolute top-full left-0 mt-0 w-72 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden p-2"
+                >
+                  <div className="p-2 space-y-1">
+                    {howItWorksItems.map((item, idx) => (
+                      <div key={idx} className="group/item">
+                        <button 
+                          onClick={() => {
+                            if (item.view) {
+                              setView(item.view);
+                              setIsHowItWorksOpen(false);
+                            } else if (!item.subItems) {
+                              showComingSoon(item.title);
+                            }
+                          }}
+                          className={`w-full flex items-center justify-between px-3 py-2.5 ${currentView === item.view ? 'text-[#FFD700] bg-slate-800' : 'text-slate-400'} hover:text-white hover:bg-slate-800 rounded-lg transition-all ${item.subItems ? 'cursor-default' : ''}`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-[#008752] group-hover/item:scale-110 transition-transform">{item.icon}</span>
+                            {item.title}
+                          </div>
+                          {item.subItems && <ChevronRight size={12} className="text-slate-600" />}
+                        </button>
+                        
+                        {item.subItems && (
+                          <div className="ml-9 mt-1 space-y-1 border-l border-slate-800 pl-4 mb-2">
+                            {item.subItems.map((sub, sIdx) => (
+                              <button
+                                key={sIdx}
+                                onClick={() => showComingSoon(sub.title)}
+                                className="w-full flex items-center gap-2 py-2 text-[9px] text-slate-500 hover:text-[#FFD700] transition-colors"
+                              >
+                                {sub.icon}
+                                {sub.title}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          
+          <div className="h-4 w-px bg-slate-800" />
+
+          <button 
+            onClick={() => setView('dashboard')}
+            className="px-6 py-2.5 bg-[#008752] text-white rounded-full flex items-center gap-2 transition-all hover:scale-105 shadow-lg shadow-[#008752]/20"
+          >
+            <LayoutDashboard size={14} />
+            Enter MTB
+          </button>
+        </div>
+
+        {/* Mobile Toggle */}
+        <button className="md:hidden text-slate-300" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? <X /> : <Menu />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 animate-in slide-in-from-top-4 duration-300">
-          <div className="px-4 pt-4 pb-8 space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-4 py-4 text-base font-medium rounded-xl transition-all ${
-                  isActive(item.path)
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                <item.icon className="h-5 w-5" />
-                {item.name}
-              </Link>
-            ))}
-            <div className="pt-4 flex flex-col space-y-2">
-              <Button variant="outline" className="w-full justify-center font-bold uppercase tracking-widest py-6 rounded-xl" asChild>
-                <Link to="/dashboard" onClick={() => setIsOpen(false)}>Registry</Link>
-              </Button>
-              <Button className="w-full justify-center rounded-xl font-bold uppercase tracking-widest py-6 bg-slate-900 hover:bg-blue-600 text-white" asChild>
-                <Link to="/dashboard" onClick={() => setIsOpen(false)}>Launch App</Link>
-              </Button>
+      <AnimatePresence>
+        {isOpen && (
+            <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-slate-900 border-b border-slate-800 overflow-hidden"
+            >
+            <div className="p-6 space-y-4 font-black uppercase tracking-widest text-[10px]">
+                <button 
+                    onClick={() => { setView('landing'); setIsOpen(false); }}
+                    className={`block w-full text-left py-2 ${currentView === 'landing' ? 'text-[#FFD700]' : 'text-slate-400'}`}
+                >
+                    Vision
+                </button>
+                <button 
+                    onClick={() => { setView('communities'); setIsOpen(false); }}
+                    className={`block w-full text-left py-2 ${currentView === 'communities' ? 'text-[#FFD700]' : 'text-slate-400'}`}
+                >
+                    Communities
+                </button>
+
+                <button 
+                    onClick={() => { setView('architecture'); setIsOpen(false); }}
+                    className={`block w-full text-left py-2 flex items-center gap-2 ${currentView === 'architecture' ? 'text-[#FFD700]' : 'text-slate-400'}`}
+                >
+                    <Layers size={14} className="text-[#008752]" />
+                    Architecture
+                </button>
+
+                {/* Mobile How It Works */}
+                <div className="space-y-2">
+                  <div className="text-slate-500 pb-2 border-b border-slate-800">How it works?</div>
+                  <div className="pl-4 space-y-4 pt-2">
+                    {howItWorksItems.map((item, idx) => (
+                      <div key={idx}>
+                        <button 
+                          onClick={() => {
+                            if (item.view) {
+                                setView(item.view);
+                                setIsOpen(false);
+                            } else if (!item.subItems) {
+                                showComingSoon(item.title);
+                            }
+                          }}
+                          className={`block w-full text-left ${currentView === item.view ? 'text-[#FFD700]' : 'text-slate-400'} hover:text-white flex items-center gap-2`}
+                        >
+                          {item.icon}
+                          {item.title}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <button 
+                    onClick={() => { setView('dashboard'); setIsOpen(false); }}
+                    className="w-full bg-[#008752] text-white py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-[#008752]/20"
+                >
+                    <LayoutDashboard size={16} />
+                    Enter Dashboard
+                </button>
             </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
-};
-
-export default Navbar;
+}
