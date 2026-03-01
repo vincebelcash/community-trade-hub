@@ -153,8 +153,8 @@ export function EconomicCellsPage() {
             <div className="absolute -inset-4 bg-gradient-to-br from-[#008752]/20 via-[#FFD700]/10 to-[#EF3340]/20 rounded-[2.5rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
             <div className="relative overflow-hidden rounded-[2rem] border border-slate-800 shadow-2xl">
               <img 
-                src="https://storage.googleapis.com/dala-prod-public-storage/generated-images/b88df19d-56b8-43a3-a0ec-e63c9a3dc9ca/african-woman-with-au-flag-biometric-style-960b8740-1772380638710.webp"
-                alt="Digital Cell Passport - African Union"
+                src="https://storage.googleapis.com/dala-prod-public-storage/generated-images/b88df19d-56b8-43a3-a0ec-e63c9a3dc9ca/digital-cell-passport-00f163b0-1772380246393.webp"
+                alt="Digital Cell Passport"
                 className="w-full aspect-square object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60" />

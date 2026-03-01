@@ -1,161 +1,152 @@
-import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer, 
-  AreaChart, 
-  Area 
-} from "recharts";
-import { 
-  TrendingUp, 
-  Wallet, 
-  Activity, 
-  Globe, 
-  Settings as SettingsIcon,
-  Plus
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+  ArrowUpRight, 
+  ArrowDownLeft, 
+  QrCode,
+  LayoutGrid,
+  ChevronRight,
+  ShieldCheck,
+  Zap,
+  BarChart3,
+  Settings,
+  Users,
+  Wallet
+} from 'lucide-react';
+import { OverviewTab } from './Dashboard/OverviewTab';
+import { MarketTab } from './Dashboard/MarketTab';
+import { WalletTab } from './Dashboard/WalletTab';
+import { NetworksTab } from './Dashboard/NetworksTab';
+import { SettingsTab } from './Dashboard/SettingsTab';
+import { SendModal, ReceiveModal, JoinNetworkModal } from './Dashboard/Modals';
 
-const data = [
-  { name: "Jan", value: 400 },
-  { name: "Feb", value: 300 },
-  { name: "Mar", value: 600 },
-  { name: "Apr", value: 800 },
-  { name: "May", value: 500 },
-  { name: "Jun", value: 900 },
-  { name: "Jul", value: 1100 },
-];
+export type Tab = 'overview' | 'market' | 'wallet' | 'networks' | 'settings';
 
-const Dashboard = () => {
+export function Dashboard() {
+  const [activeTab, setActiveTab] = useState<Tab>('overview');
+  const [isSendOpen, setIsSendOpen] = useState(false);
+  const [isReceiveOpen, setIsReceiveOpen] = useState(false);
+  const [isJoinOpen, setIsJoinOpen] = useState(false);
+  const [bonusBalance, setBonusBalance] = useState(420.00);
+
+  const handleSupport = (name: string, cost: number) => {
+    setBonusBalance(prev => prev - cost);
+  };
+
   return (
-    <div className="pt-20 pb-10 min-h-screen bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">HellOOpass Dashboard</h1>
-            <p className="text-muted-foreground">Welcome back to your overview.</p>
+    <div className="pt-24 pb-12 px-4 md:px-6 max-w-7xl mx-auto min-h-screen">
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Sidebar Nav */}
+        <aside className="w-full lg:w-64 space-y-2 shrink-0">
+          <div className="hidden lg:block pb-4 border-b border-slate-800 mb-4 px-4">
+             <div className="flex items-center gap-3">
+               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#008752] to-[#FFD700] flex items-center justify-center font-bold text-slate-900">AR</div>
+               <div>
+                 <p className="text-sm font-bold">Alex Rivera</p>
+                 <p className="text-[10px] text-slate-500 font-black uppercase">Verified Member</p>
+               </div>
+             </div>
           </div>
-          <Button className="flex items-center gap-2">
-            <Plus className="h-4 w-4" /> Create New Link
-          </Button>
-        </div>
-
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="bg-background border border-border p-1">
-            <TabsTrigger value="overview" className="gap-2">
-              <TrendingUp className="h-4 w-4" /> Overview
-            </TabsTrigger>
-            <TabsTrigger value="markets" className="gap-2">
-              <Activity className="h-4 w-4" /> Markets
-            </TabsTrigger>
-            <TabsTrigger value="networks" className="gap-2">
-              <Globe className="h-4 w-4" /> Networks
-            </TabsTrigger>
-            <TabsTrigger value="wallet" className="gap-2">
-              <Wallet className="h-4 w-4" /> Wallet
-            </TabsTrigger>
-            <TabsTrigger value="settings" className="gap-2">
-              <SettingsIcon className="h-4 w-4" /> Settings
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { title: "Total Value", value: "$124,592.00", trend: "+12.5%", color: "text-green-500" },
-                { title: "Active Nodes", value: "1,204", trend: "+3.2%", color: "text-green-500" },
-                { title: "Pending Orders", value: "48", trend: "-2.4%", color: "text-red-500" },
-              ].map((stat) => (
-                <Card key={stat.title}>
-                  <CardHeader className="pb-2">
-                    <CardDescription>{stat.title}</CardDescription>
-                    <CardTitle className="text-2xl">{stat.value}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className={`text-sm font-medium ${stat.color}`}>{stat.trend} from last month</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <Card className="col-span-1 md:col-span-2">
-              <CardHeader>
-                <CardTitle>Activity Overview</CardTitle>
-                <CardDescription>Performance tracking for HellOOpass networks</CardDescription>
-              </CardHeader>
-              <CardContent className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={data}>
-                    <defs>
-                      <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                    <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value}`} />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: "hsl(var(--background))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }}
-                      itemStyle={{ color: "hsl(var(--primary))" }}
-                    />
-                    <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" fillOpacity={1} fill="url(#colorValue)" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="markets">
-            <Card>
-              <CardHeader>
-                <CardTitle>Market Insights</CardTitle>
-                <CardDescription>Real-time data across HellOOpass enabled markets.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="py-20 text-center text-muted-foreground">
-                  No market data available for your current region.
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
           
-          <TabsContent value="networks">
-            <Card>
-              <CardHeader>
-                <CardTitle>Network Connections</CardTitle>
-                <CardDescription>Manage your connections within the HellOOpass ecosystem.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="flex items-center justify-between p-4 border border-border rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                          <Globe className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <p className="font-medium">Network Alpha {i}</p>
-                          <p className="text-xs text-muted-foreground">Active since Jan 2024</p>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="sm">Manage</Button>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+          <DashboardNavButton 
+            active={activeTab === 'overview'} 
+            onClick={() => setActiveTab('overview')} 
+            icon={<LayoutGrid size={20} />} 
+            label="Overview" 
+          />
+          <DashboardNavButton 
+            active={activeTab === 'market'} 
+            onClick={() => setActiveTab('market')} 
+            icon={<BarChart3 size={20} />} 
+            label="Support Market" 
+          />
+          <DashboardNavButton 
+            active={activeTab === 'wallet'} 
+            onClick={() => setActiveTab('wallet')} 
+            icon={<Wallet size={20} />} 
+            label="Wallets & Cards" 
+          />
+          <DashboardNavButton 
+            active={activeTab === 'networks'} 
+            onClick={() => setActiveTab('networks')} 
+            icon={<Users size={20} />} 
+            label="My Networks" 
+          />
+          <DashboardNavButton 
+            active={activeTab === 'settings'} 
+            onClick={() => setActiveTab('settings')} 
+            icon={<Settings size={20} />} 
+            label="Settings" 
+          />
+          
+          <div className="mt-8 pt-8 border-t border-slate-800">
+            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest px-4 mb-4">Quick Actions</h4>
+            <div className="grid grid-cols-2 gap-2 px-2">
+               <button onClick={() => setIsSendOpen(true)} className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition-colors gap-1">
+                 <ArrowUpRight size={18} className="text-[#008752]" />
+                 <span className="text-[10px] font-bold uppercase">Send</span>
+               </button>
+               <button onClick={() => setIsReceiveOpen(true)} className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 transition-colors gap-1">
+                 <QrCode size={18} className="text-[#FFD700]" />
+                 <span className="text-[10px] font-bold uppercase">QR Pay</span>
+               </button>
+            </div>
+          </div>
+        </aside>
+
+        {/* Main Content Area */}
+        <div className="flex-1 min-w-0">
+          <AnimatePresence mode="wait">
+            {activeTab === 'overview' && (
+              <OverviewTab 
+                key="overview" 
+                bonusBalance={bonusBalance} 
+                onEnterMarket={() => setActiveTab('market')}
+                onSend={() => setIsSendOpen(true)}
+                onReceive={() => setIsReceiveOpen(true)}
+              />
+            )}
+            {activeTab === 'market' && (
+              <MarketTab 
+                key="market" 
+                bonusBalance={bonusBalance} 
+                onSupport={handleSupport} 
+              />
+            )}
+            {activeTab === 'wallet' && (
+              <WalletTab key="wallet" />
+            )}
+            {activeTab === 'networks' && (
+              <NetworksTab key="networks" onJoin={() => setIsJoinOpen(true)} />
+            )}
+            {activeTab === 'settings' && (
+              <SettingsTab key="settings" />
+            )}
+          </AnimatePresence>
+        </div>
       </div>
+
+      {/* Modals */}
+      <SendModal isOpen={isSendOpen} onClose={() => setIsSendOpen(false)} />
+      <ReceiveModal isOpen={isReceiveOpen} onClose={() => setIsReceiveOpen(false)} />
+      <JoinNetworkModal isOpen={isJoinOpen} onClose={() => setIsJoinOpen(false)} />
     </div>
   );
-};
+}
 
-export default Dashboard;
+function DashboardNavButton({ active, icon, label, onClick }: any) {
+  return (
+    <button 
+      onClick={onClick}
+      className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all ${
+        active 
+        ? 'bg-[#008752] text-white font-bold shadow-lg shadow-[#008752]/20' 
+        : 'text-slate-400 hover:bg-slate-900 hover:text-white'
+      }`}
+    >
+      {icon}
+      <span className="text-sm">{label}</span>
+      {active && <ChevronRight size={16} className="ml-auto" />}
+    </button>
+  );
+}
